@@ -5,10 +5,8 @@ import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 import com.comze_instancelabs.minigamesapi.Classes;
 import com.comze_instancelabs.minigamesapi.MinigamesAPI;

@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 
@@ -28,6 +27,7 @@ public class IArenaScoreboard extends ArenaScoreboard {
 		this.plugin = m;
 	}
 
+	@SuppressWarnings("deprecation")
 	public void updateScoreboard(final IArena arena) {
 		if (arena != null) {
 			for (String p_ : arena.getAllPlayers()) {
@@ -79,7 +79,9 @@ public class IArenaScoreboard extends ArenaScoreboard {
 
 	@Override
 	public void updateScoreboard(JavaPlugin plugin, final Arena arena) {
-		IArena a = (IArena) MinigamesAPI.getAPI().pinstances.get(plugin).getArenaByName(arena.getName());
+		MinigamesAPI.getAPI();
+		@SuppressWarnings("deprecation")
+		IArena a = (IArena) MinigamesAPI.pinstances.get(plugin).getArenaByName(arena.getName());
 		this.updateScoreboard(a);
 	}
 
