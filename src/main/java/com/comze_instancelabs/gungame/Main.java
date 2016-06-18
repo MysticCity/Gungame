@@ -73,15 +73,16 @@ public class Main extends JavaPlugin implements Listener {
 		m = this;
 		IMessagesConfig im = new IMessagesConfig(this);
 		this.im = im;
-		api = MinigamesAPI.getAPI().setupAPI(this, "gungame", IArena.class, new ArenasConfig(this), im, new IClassesConfig(this), new StatsConfig(this, false), new IDefaultConfig(this), true);
-		PluginInstance pinstance = api.pinstances.get(this);
+		MinigamesAPI.getAPI();
+		api = MinigamesAPI.setupAPI(this, "gungame", IArena.class, new ArenasConfig(this), im, new IClassesConfig(this), new StatsConfig(this, false), new IDefaultConfig(this), true);
+		PluginInstance pinstance = MinigamesAPI.pinstances.get(this);
 		pinstance.addLoadedArenas(loadArenas(this, pinstance.getArenasConfig()));
 		Bukkit.getPluginManager().registerEvents(this, this);
 		pinstance.scoreboardManager = new IArenaScoreboard(this);
 		icl = new IClasses(this);
 		pinstance.setClassesHandler(icl);
 		IArenaListener t = new IArenaListener(this, pinstance);
-		api.registerArenaListenerLater(this, t);
+		MinigamesAPI.registerArenaListenerLater(this, t);
 		pinstance.setArenaListener(t);
 		pli = pinstance;
 		icl.loadClasses();
@@ -153,7 +154,8 @@ public class Main extends JavaPlugin implements Listener {
 
 	public static IArena initArena(String arena) {
 		IArena a = new IArena(m, arena);
-		ArenaSetup s = MinigamesAPI.getAPI().pinstances.get(m).arenaSetup;
+		MinigamesAPI.getAPI();
+		ArenaSetup s = MinigamesAPI.pinstances.get(m).arenaSetup;
 		a.init(Util.getSignLocationFromArena(m, arena), Util.getAllSpawns(m, arena), Util.getMainLobby(m), Util.getComponentForArena(m, arena, "lobby"), s.getPlayerCount(m, arena, true), s.getPlayerCount(m, arena, false), s.getArenaVIP(m, arena));
 		return a;
 	}
@@ -183,7 +185,6 @@ public class Main extends JavaPlugin implements Listener {
 
 	@EventHandler
 	public void onPlayerDeath(final PlayerDeathEvent event) {
-		// TODO This is still the original old gungame code, needs performance upgrades
 		if (event.getEntity().getKiller() != null) {
 			if (event.getEntity().getKiller() instanceof Player && event.getEntity() instanceof Player && pli.global_players.containsKey(event.getEntity().getName()) && pli.global_players.containsKey(event.getEntity().getKiller().getName())) {
 				event.getDrops().clear();
@@ -193,6 +194,7 @@ public class Main extends JavaPlugin implements Listener {
 				final String entityKilled = event.getEntity().getName();
 
 				Bukkit.getScheduler().runTask(this, new Runnable() {
+					@SuppressWarnings("deprecation")
 					public void run() {
 						pli.getRewardsInstance().giveKillReward(killername, 2);
 					}
@@ -238,7 +240,9 @@ public class Main extends JavaPlugin implements Listener {
 					}
 				}, 20L);
 
-				p2.playSound(p2.getLocation(), Sound.CAT_MEOW, 1F, 1);
+				  if (Bukkit.getVersion().startsWith("v1_9")) {
+						p2.playSound(p2.getLocation(), Sound.ENTITY_CAT_PURREOW, 1F, 1);
+                        }
 				lv.put(p2.getName(), 0);
 
 				ArrayList<String> keys = new ArrayList<String>();
@@ -283,9 +287,10 @@ public class Main extends JavaPlugin implements Listener {
 						} else {
 							return;
 						}
-
-						p.playSound(p.getLocation(), Sound.CAT_MEOW, 1F, 1);
-
+                          if (Bukkit.getVersion().startsWith("v1_9")) {
+						p.playSound(p.getLocation(), Sound.ENTITY_CAT_PURR, 1F, 1);
+                          }
+						
 						p.setFoodLevel(20);
 
 						lv.put(p.getName(), 0);
@@ -320,6 +325,7 @@ public class Main extends JavaPlugin implements Listener {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onmove(PlayerMoveEvent event) {
 		if (pli.global_players.containsKey(event.getPlayer().getName())) {
