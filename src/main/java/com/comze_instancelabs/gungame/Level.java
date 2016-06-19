@@ -38,7 +38,7 @@ public class Level {
 						Bukkit.getPlayer(p_).sendMessage(m.pli.getMessagesConfig().server_broadcast_winner.replaceAll("<arena>", a.getName()).replaceAll("<player>", p.getName()));
 					}
 				}
-				a.stop();
+				a.stopArena();
 			}
 		}
 
