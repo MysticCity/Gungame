@@ -90,7 +90,7 @@ public class IArena extends Arena {
 
 	@Override
 	public void leavePlayer(final String playername, boolean fullLeave) {
-		super.leavePlayerRaw(playername, fullLeave);
+		super.leavePlayer(playername, fullLeave);
 		if (pspawn.containsKey(playername)) {
 			pspawn.remove(playername);
 		}
