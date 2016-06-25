@@ -2,6 +2,8 @@ package com.comze_instancelabs.gungame.sql;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.comze_instancelabs.minigamesapi.ArenaConfigStrings;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,22 +22,22 @@ public class MainSQL {
 		this.mysql = mysql;
 
 		if (mysql) {
-			MySQL = new MySQL(plugin.getConfig().getString("mysql.host"), "3306", plugin.getConfig().getString("mysql.database"), plugin.getConfig().getString("mysql.user"), plugin.getConfig().getString("mysql.pw"));
+			MySQL = new MySQL(plugin.getConfig().getString(ArenaConfigStrings.CONFIG_MYSQL_HOST), "3306", plugin.getConfig().getString(ArenaConfigStrings.CONFIG_MYSQL_DATABASE), plugin.getConfig().getString(ArenaConfigStrings.CONFIG_MYSQL_USER), plugin.getConfig().getString(ArenaConfigStrings.CONFIG_MYSQL_PW));
 		} else {
-			SQLite = new SQLite(plugin.getConfig().getString("mysql.database"), plugin.getConfig().getString("mysql.user"), plugin.getConfig().getString("mysql.pw"));
+			SQLite = new SQLite(plugin.getConfig().getString(ArenaConfigStrings.CONFIG_MYSQL_DATABASE), plugin.getConfig().getString(ArenaConfigStrings.CONFIG_MYSQL_USER), plugin.getConfig().getString(ArenaConfigStrings.CONFIG_MYSQL_PW));
 		}
 
-		if (plugin.getConfig().getBoolean("mysql.enabled") && MySQL != null) {
+		if (plugin.getConfig().getBoolean(ArenaConfigStrings.CONFIG_MYSQL_ENABLED) && MySQL != null) {
 			this.createTables();
-		} else if (plugin.getConfig().getBoolean("mysql.enabled") && MySQL == null) {
+		} else if (plugin.getConfig().getBoolean(ArenaConfigStrings.CONFIG_MYSQL_ENABLED) && MySQL == null) {
 			System.out.println("Failed initializing MySQL. Disabling!");
-			plugin.getConfig().set("mysql.enabled", false);
+			plugin.getConfig().set(ArenaConfigStrings.CONFIG_MYSQL_ENABLED, false);
 			plugin.saveConfig();
 		}
 	}
 
 	public void createTables() {
-		if (!plugin.getConfig().getBoolean("mysql.enabled")) {
+		if (!plugin.getConfig().getBoolean(ArenaConfigStrings.CONFIG_MYSQL_ENABLED)) {
 			return;
 		}
 		if (!mysql) {
@@ -44,7 +46,7 @@ public class MainSQL {
 		Connection c = MySQL.open();
 
 		try {
-			c.createStatement().execute("CREATE DATABASE IF NOT EXISTS `" + plugin.getConfig().getString("mysql.database") + "`");
+			c.createStatement().execute("CREATE DATABASE IF NOT EXISTS `" + plugin.getConfig().getString(ArenaConfigStrings.CONFIG_MYSQL_DATABASE) + "`");
 			c.createStatement().execute("CREATE TABLE IF NOT EXISTS " + plugin.getName() + "_gp" + " (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, player VARCHAR(100), gp INT)");
 			// }
 		} catch (SQLException e) {
@@ -53,7 +55,7 @@ public class MainSQL {
 	}
 
 	public void updateStats(String p_, int gp) {
-		if (!plugin.getConfig().getBoolean("mysql.enabled")) {
+		if (!plugin.getConfig().getBoolean(ArenaConfigStrings.CONFIG_MYSQL_ENABLED)) {
 			return;
 		}
 		if (!mysql) {
@@ -86,7 +88,7 @@ public class MainSQL {
 	}
 
 	public int getPoints(String p_) {
-		if (!plugin.getConfig().getBoolean("mysql.enabled")) {
+		if (!plugin.getConfig().getBoolean(ArenaConfigStrings.CONFIG_MYSQL_ENABLED)) {
 			return -1;
 		}
 		if (!mysql) {

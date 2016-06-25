@@ -34,6 +34,7 @@ import org.bukkit.potion.PotionEffect;
 
 import com.comze_instancelabs.gungame.sql.MainSQL;
 import com.comze_instancelabs.minigamesapi.Arena;
+import com.comze_instancelabs.minigamesapi.ArenaConfigStrings;
 import com.comze_instancelabs.minigamesapi.ArenaSetup;
 import com.comze_instancelabs.minigamesapi.ArenaState;
 import com.comze_instancelabs.minigamesapi.MinigamesAPI;
@@ -107,7 +108,7 @@ public class Main extends JavaPlugin implements Listener {
 
 		try {
 			mainsql = new MainSQL(this, true);
-			if (getConfig().getBoolean("mysql.enabled")) {
+			if (getConfig().getBoolean(ArenaConfigStrings.CONFIG_MYSQL_ENABLED)) {
 				mainsql.createTables();
 			}
 		} catch (Exception e) {
@@ -144,7 +145,7 @@ public class Main extends JavaPlugin implements Listener {
 		if (!config.isSet("arenas")) {
 			return ret;
 		}
-		for (String arena : config.getConfigurationSection("arenas.").getKeys(false)) {
+		for (String arena : config.getConfigurationSection(ArenaConfigStrings.ARENAS_PREFIX).getKeys(false)) {
 			if (Validator.isArenaValid(plugin, arena, cf.getConfig())) {
 				ret.add(initArena(arena));
 			}
