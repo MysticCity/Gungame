@@ -10,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
 
 import com.comze_instancelabs.minigamesapi.Arena;
+import com.comze_instancelabs.minigamesapi.ArenaConfigStrings;
 import com.comze_instancelabs.minigamesapi.ArenaType;
 import com.comze_instancelabs.minigamesapi.MinigamesAPI;
 import com.comze_instancelabs.minigamesapi.PluginInstance;
@@ -59,7 +60,7 @@ public class IArena extends Arena {
 		if (!started_map_rotation) {
 			System.out.println("t2");
 			// Map rotation
-			if (m.getConfig().getBoolean("config.map_rotation")) {
+			if (m.getConfig().getBoolean(ArenaConfigStrings.CONFIG_MAP_ROTATION)) {
 				System.out.println("t");
 				tt.add(Bukkit.getScheduler().runTaskLater(m, new Runnable() {
 					public void run() {
