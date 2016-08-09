@@ -163,7 +163,7 @@ public class Main extends JavaPlugin implements Listener {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("gg")) {
-			this.cmd.handleArgs(this, "gungame", "/" + cmd.getName(), sender, args);
+			this.cmd.handleArgs(this, MinigamesAPI.getAPI().getPermissionGamePrefix("gungame"), "/" + cmd.getName(), sender, args);
 			if (args.length > 0) {
 				if (args[0].equalsIgnoreCase("shop")) {
 					if (sender instanceof Player) {
