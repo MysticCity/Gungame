@@ -112,7 +112,7 @@ public class Main extends JavaPlugin implements Listener {
 				mainsql.createTables();
 			}
 		} catch (Exception e) {
-			System.out.println("Failed to load MySQL." + e.getMessage());
+			this.getLogger().log(java.util.logging.Level.SEVERE, "Failed to load MySQL.", e);
 		}
 
 		try {
@@ -223,7 +223,7 @@ public class Main extends JavaPlugin implements Listener {
 					mainsql.updateStats(p1.getName(), 2);
 					mainsql.updateStats(p2.getName(), -1);
 				} catch (Exception e) {
-					System.out.println("Failed updating sql gp.");
+					this.getLogger().log(java.util.logging.Level.SEVERE, "Failed updating sql gp.", e);
 				}
 
 				Bukkit.getScheduler().runTaskLater(this, new Runnable() {
@@ -390,11 +390,7 @@ public class Main extends JavaPlugin implements Listener {
 					String killerName = p1.getName();
 					String entityKilled = event.getPlayer().getName();
 
-					try {
-						pli.getRewardsInstance().giveKillReward(killerName, 2);
-					} catch (Exception e) {
-						System.out.println("Please update MinigamesLib to the latest version to enable kill rewards.");
-					}
+					pli.getRewardsInstance().giveKillReward(killerName, 2);
 
 					Integer gpkiller = 0;
 					Integer gploser = 0;
@@ -413,7 +409,7 @@ public class Main extends JavaPlugin implements Listener {
 						mainsql.updateStats(p1.getName(), 2);
 						mainsql.updateStats(p2.getName(), -1);
 					} catch (Exception e) {
-						System.out.println("Failed updating sql gp.");
+						this.getLogger().log(java.util.logging.Level.SEVERE, "Failed updating sql gp.", e);
 					}
 
 					p1.playEffect(p1.getLocation(), Effect.POTION_BREAK, 5);
