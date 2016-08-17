@@ -3,6 +3,9 @@ package com.comze_instancelabs.gungame.sql;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+
+import com.comze_instancelabs.minigamesapi.MinigamesAPI;
 
 public class MySQL extends Database {
 	String user = "";
@@ -26,9 +29,9 @@ public class MySQL extends Database {
 			this.c = DriverManager.getConnection("jdbc:mysql://" + this.hostname + ":" + this.port + "/" + this.database, this.user, this.password);
 			return c;
 		} catch (SQLException e) {
-			System.out.println("Could not connect to MySQL server! Cause: " + e.getMessage());
+			MinigamesAPI.getAPI().getLogger().log(Level.SEVERE, "Could not connect to MySQL server! Cause: ", e);
 		} catch (ClassNotFoundException e) {
-			System.out.println("JDBC Driver not found!");
+			MinigamesAPI.getAPI().getLogger().log(Level.SEVERE, "JDBC Driver not found!");
 		}
 		return this.c;
 	}

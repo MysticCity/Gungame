@@ -2,6 +2,7 @@ package com.comze_instancelabs.gungame;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -58,10 +59,10 @@ public class IArena extends Arena {
 
 		final IArena a = this;
 		if (!started_map_rotation) {
-			System.out.println("t2");
+			this.getPlugin().getLogger().fine("t2");
 			// Map rotation
 			if (m.getConfig().getBoolean(ArenaConfigStrings.CONFIG_MAP_ROTATION)) {
-				System.out.println("t");
+				this.getPlugin().getLogger().fine("t");
 				tt.add(Bukkit.getScheduler().runTaskLater(m, new Runnable() {
 					public void run() {
 						final ArrayList<String> temp = new ArrayList<String>(a.getAllPlayers());
