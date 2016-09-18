@@ -92,14 +92,21 @@ public class Main extends JavaPlugin implements Listener {
 
 		this.getConfig().addDefault("config.map_rotation_time_minutes", 10);
 		this.getConfig().addDefault("config.first_to_max_levels_wins_game", false);
-		this.getConfig().addDefault("config.die_below_bedrock_level", true);
+		this.getConfig().addDefault("config.die_below_bedrock_level", 4);
 
 		this.getConfig().options().copyDefaults(true);
 		this.saveConfig();
 
-		boolean die_below_zero = this.getConfig().getBoolean("config.die_below_bedrock_level");
-		if (die_below_zero) {
-			pli.getArenaListener().loseY = 100;
+		if (this.getConfig().isBoolean("config.die_below_bedrock_level"))
+		{
+			boolean die_below_zero = this.getConfig().getBoolean("config.die_below_bedrock_level");
+			if (die_below_zero) {
+				pli.getArenaListener().loseY = 100;
+			}
+		}
+		else
+		{
+			pli.getArenaListener().loseY = this.getConfig().getInt("config.die_below_bedrock_level");
 		}
 
 		first_to_max_wins = this.getConfig().getBoolean("config.first_to_max_levels_wins_game");
