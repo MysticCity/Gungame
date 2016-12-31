@@ -81,7 +81,7 @@ public class IArenaScoreboard extends ArenaScoreboard {
 	public void updateScoreboard(JavaPlugin plugin, final Arena arena) {
 		MinigamesAPI.getAPI();
 		@SuppressWarnings("deprecation")
-		IArena a = (IArena) MinigamesAPI.pinstances.get(plugin).getArenaByName(arena.getName());
+		IArena a = (IArena) MinigamesAPI.pinstances.get(plugin).getArenaByName(arena.getInternalName());
 		this.updateScoreboard(a);
 	}
 
