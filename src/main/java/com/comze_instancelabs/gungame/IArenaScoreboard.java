@@ -55,12 +55,12 @@ public class IArenaScoreboard extends ArenaScoreboard {
 				gpp.get(p_).setDisplaySlot(DisplaySlot.SIDEBAR);
 				gpp.get(p_).setDisplayName("[" + p_ + "]");
 
-				ascore.get(p_).resetScores(Bukkit.getOfflinePlayer(p_));
+				reset(ascore.get(p_), p_);
 				if (!plugin.lv.containsKey(p_)) {
 					plugin.lv.put(p_, 0);
 				}
 				for (String p__ : arena.getAllPlayers()) {
-					aobjective.get(p_).getScore(Bukkit.getOfflinePlayer(p__)).setScore(plugin.lv.get(p__));
+					get(aobjective.get(p_), p__).setScore(plugin.lv.get(p__));
 				}
 
 				int gp = 0;
@@ -68,9 +68,9 @@ public class IArenaScoreboard extends ArenaScoreboard {
 					gp = plugin.getConfig().getInt("player." + p_ + ".gp"); // +2 gp!
 				}
 
-				gpp.get(p_).getScore(Bukkit.getOfflinePlayer("Your Level")).setScore(plugin.lv.get(p_));
-				gpp.get(p_).getScore(Bukkit.getOfflinePlayer("Gunpoints")).setScore(gp);
-				gpp.get(p_).getScore(Bukkit.getOfflinePlayer("Players")).setScore(arena.getAllPlayers().size());
+				get(gpp.get(p_), "Your Level").setScore(plugin.lv.get(p_));
+				get(gpp.get(p_), "Gunpoints").setScore(gp);
+				get(gpp.get(p_), "Players").setScore(arena.getAllPlayers().size());
 
 				p.setScoreboard(ascore.get(p_));
 			}
