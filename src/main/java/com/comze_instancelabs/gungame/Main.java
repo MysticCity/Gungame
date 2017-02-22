@@ -50,7 +50,7 @@ public class Main extends JavaPlugin implements Listener {
 	MinigamesAPI api = null;
 	PluginInstance pli = null;
 	static Main m = null;
-	IArenaScoreboard scoreboard = new IArenaScoreboard(this);
+	IArenaScoreboard scoreboard;
 	boolean crackshot = false;
 
 	HashMap<String, Integer> lv = new HashMap<String, Integer>();
@@ -79,7 +79,8 @@ public class Main extends JavaPlugin implements Listener {
 		PluginInstance pinstance = MinigamesAPI.pinstances.get(this);
 		pinstance.addLoadedArenas(loadArenas(this, pinstance.getArenasConfig()));
 		Bukkit.getPluginManager().registerEvents(this, this);
-		pinstance.scoreboardManager = new IArenaScoreboard(this);
+		this.scoreboard = new IArenaScoreboard(this, this.im);
+		pinstance.scoreboardManager = this.scoreboard;
 		icl = new IClasses(this);
 		pinstance.setClassesHandler(icl);
 		IArenaListener t = new IArenaListener(this, pinstance);

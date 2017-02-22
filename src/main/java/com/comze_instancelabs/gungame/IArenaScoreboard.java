@@ -22,9 +22,11 @@ public class IArenaScoreboard extends ArenaScoreboard {
 	HashMap<String, Objective> gpp = new HashMap<String, Objective>();
 
 	Main plugin = null;
+	private IMessagesConfig im;
 
-	public IArenaScoreboard(Main m) {
+	public IArenaScoreboard(Main m, IMessagesConfig im) {
 		this.plugin = m;
+		this.im = im;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -68,9 +70,9 @@ public class IArenaScoreboard extends ArenaScoreboard {
 					gp = plugin.getConfig().getInt("player." + p_ + ".gp"); // +2 gp!
 				}
 
-				get(gpp.get(p_), "Your Level").setScore(plugin.lv.get(p_));
-				get(gpp.get(p_), "Gunpoints").setScore(gp);
-				get(gpp.get(p_), "Players").setScore(arena.getAllPlayers().size());
+				get(gpp.get(p_), this.im.sb_your_level).setScore(plugin.lv.get(p_));
+				get(gpp.get(p_), this.im.sb_gunpoints).setScore(gp);
+				get(gpp.get(p_), this.im.sb_players).setScore(arena.getAllPlayers().size());
 
 				p.setScoreboard(ascore.get(p_));
 			}
