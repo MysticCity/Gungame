@@ -12,6 +12,7 @@ public class IMessagesConfig extends MessagesConfig {
 	public String sb_your_level = "Your Level";
 	public String sb_gunpoints = "Gunpoints";
 	public String sb_players = "Players";
+	public String sb_title = "[%player%]";
 	public String sb_name_level = "&bLv";
 
 	public IMessagesConfig(JavaPlugin arg0) {
@@ -24,6 +25,7 @@ public class IMessagesConfig extends MessagesConfig {
 		this.getConfig().addDefault("messages.sb_gunpoints", sb_gunpoints);
 		this.getConfig().addDefault("messages.sb_players", sb_players);
 		this.getConfig().addDefault("messages.sb_name_level", sb_name_level);
+		this.getConfig().addDefault("messages.sb_title", sb_title);
 
 		this.getConfig().options().copyDefaults(true);
 		this.saveConfig();
@@ -34,6 +36,7 @@ public class IMessagesConfig extends MessagesConfig {
 		this.sb_gunpoints = ChatColor.translateAlternateColorCodes('&', getConfig().getString("messages.sb_gunpoints"));
 		this.sb_players = ChatColor.translateAlternateColorCodes('&', getConfig().getString("messages.sb_players"));
 		this.sb_name_level = ChatColor.translateAlternateColorCodes('&', getConfig().getString("messages.sb_name_level"));
+		this.sb_title = ChatColor.translateAlternateColorCodes('&', getConfig().getString("messages.sb_title"));
 
 	}
 

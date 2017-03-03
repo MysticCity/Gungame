@@ -3,7 +3,6 @@ package com.comze_instancelabs.gungame;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -52,10 +51,10 @@ public class IArenaScoreboard extends ArenaScoreboard {
 				}
 
 				aobjective.get(p_).setDisplaySlot(DisplaySlot.BELOW_NAME);
-				aobjective.get(p_).setDisplayName(ChatColor.AQUA + "Lv");
+				aobjective.get(p_).setDisplayName(this.im.sb_name_level);
 
 				gpp.get(p_).setDisplaySlot(DisplaySlot.SIDEBAR);
-				gpp.get(p_).setDisplayName("[" + p_ + "]");
+				gpp.get(p_).setDisplayName(this.im.sb_title.replace("%player%",  p_));
 
 				reset(ascore.get(p_), p_);
 				if (!plugin.lv.containsKey(p_)) {
