@@ -32,7 +32,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 
-import com.comze_instancelabs.gungame.sql.MainSQL;
 import com.comze_instancelabs.minigamesapi.Arena;
 import com.comze_instancelabs.minigamesapi.ArenaConfigStrings;
 import com.comze_instancelabs.minigamesapi.ArenaSetup;
@@ -59,8 +58,6 @@ public class Main extends JavaPlugin implements Listener {
 	ICommandHandler cmd;
 	IMessagesConfig im;
 	LevelsConfig lc;
-
-	MainSQL mainsql;
 
 	HashMap<Integer, ArrayList<ItemStack>> items = new HashMap<Integer, ArrayList<ItemStack>>();
 
@@ -113,15 +110,6 @@ public class Main extends JavaPlugin implements Listener {
 		first_to_max_wins = this.getConfig().getBoolean("config.first_to_max_levels_wins_game");
 
 		lc = new LevelsConfig(this);
-
-		try {
-			mainsql = new MainSQL(this, true);
-			if (getConfig().getBoolean(ArenaConfigStrings.CONFIG_MYSQL_ENABLED)) {
-				mainsql.createTables();
-			}
-		} catch (Exception e) {
-			this.getLogger().log(java.util.logging.Level.SEVERE, "Failed to load MySQL.", e);
-		}
 
 		try {
 			int c = 0;
@@ -228,8 +216,12 @@ public class Main extends JavaPlugin implements Listener {
 				this.saveConfig();
 
 				try {
-					mainsql.updateStats(p1.getName(), 2);
-					mainsql.updateStats(p2.getName(), -1);
+					pli.getSQLInstance().addGamePoints(p1, 2);
+					pli.getSQLInstance().addGamePoints(p2, -1);
+					if (pli.getSQLInstance().getGamePoints(p2) < 0)
+					{
+						pli.getSQLInstance().setGamePoints(p2, 0);
+					}
 				} catch (Exception e) {
 					this.getLogger().log(java.util.logging.Level.SEVERE, "Failed updating sql gp.", e);
 				}
@@ -414,8 +406,12 @@ public class Main extends JavaPlugin implements Listener {
 					this.saveConfig();
 
 					try {
-						mainsql.updateStats(p1.getName(), 2);
-						mainsql.updateStats(p2.getName(), -1);
+						pli.getSQLInstance().addGamePoints(p1, 2);
+						pli.getSQLInstance().addGamePoints(p2, -1);
+						if (pli.getSQLInstance().getGamePoints(p2) < 0)
+						{
+							pli.getSQLInstance().setGamePoints(p2, 0);
+						}
 					} catch (Exception e) {
 						this.getLogger().log(java.util.logging.Level.SEVERE, "Failed updating sql gp.", e);
 					}
