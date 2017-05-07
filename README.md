@@ -1,4 +1,4 @@
-Gungame [![Build Status](http://www.minigameslib.de/build.php?app=GunGame&major=1)](http://www.minigameslib.de/buildref.php?app=GunGame&major=1)
+Gungame [![Build Status](http://www.minigameslib.de/build.png?app=GunGame&major=1)](http://www.minigameslib.de/buildref.php?app=GunGame&major=1)
 =======
 
 GunGame for spigot-minecraft using [MinigamesAPI](https://github.com/MysticCity/MinigamesAPI).
