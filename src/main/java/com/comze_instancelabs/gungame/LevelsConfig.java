@@ -3,6 +3,7 @@ package com.comze_instancelabs.gungame;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -85,7 +86,7 @@ public class LevelsConfig {
 
 		InputStream defConfigStream = plugin.getResource("levels.yml");
 		if (defConfigStream != null) {
-			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream));
 			arenaConfig.setDefaults(defConfig);
 		}
 	}
